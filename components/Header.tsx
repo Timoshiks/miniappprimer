@@ -9,12 +9,19 @@ interface HeaderProps {
   setQuery: (q: string) => void;
   cartCount: number;
   onOpenCart: () => void;
+  showSearch?: boolean;
 }
 
-export default function Header({ query, setQuery, cartCount, onOpenCart }: HeaderProps) {
+export default function Header({
+  query,
+  setQuery,
+  cartCount,
+  onOpenCart,
+  showSearch = true,
+}: HeaderProps) {
   return (
-    <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-md px-4 pt-4 pb-3 border-b border-gray-50">
-      <div className="flex items-center justify-between mb-3 relative">
+    <div className={`sticky top-0 z-30 bg-white/90 backdrop-blur-md px-4 pt-4 border-b border-gray-50 transition-all ${showSearch ? "pb-3" : "pb-3"}`}>
+      <div className={`flex items-center justify-between relative ${showSearch ? "mb-3" : "mb-0"}`}>
         <div className="w-8" />
         <h1 className="text-[15px] font-bold tracking-[0.14em] text-[#111827] text-center uppercase">
           Maison de Parfum
@@ -34,16 +41,18 @@ export default function Header({ query, setQuery, cartCount, onOpenCart }: Heade
         </button>
       </div>
 
-      <div className="relative">
-        <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Поиск по бренду или названию..."
-          className="w-full rounded-full bg-[#F9FAFB]/80 border border-gray-100 backdrop-blur-sm pl-9 pr-4 py-2.5 text-[13px] text-[#111827] placeholder-gray-400 outline-none focus:border-[#E0C3FC] transition-colors"
-        />
-      </div>
+      {showSearch && (
+        <div className="relative animate-fadeIn">
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Поиск по бренду или названию..."
+            className="w-full rounded-full bg-[#F9FAFB]/80 border border-gray-100 backdrop-blur-sm pl-9 pr-4 py-2.5 text-[13px] text-[#111827] placeholder-gray-400 outline-none focus:border-[#E0C3FC] transition-colors"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -92,12 +92,13 @@ export default function Home() {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 font-[system-ui]">
       <div className="relative w-full max-w-md h-[100dvh] max-h-[920px] bg-white overflow-hidden flex flex-col shadow-2xl border-x border-gray-200/50 sm:rounded-3xl my-auto">
-        {/* Header Bar with Search & Floating Cart Button */}
+        {/* Header Bar with Search (only on Home and Catalog tabs) */}
         <Header
           query={query}
           setQuery={setQuery}
           cartCount={cartCount}
           onOpenCart={() => setTab("cart")}
+          showSearch={tab === "home" || tab === "catalog"}
         />
 
         {/* Scrollable Viewport */}
